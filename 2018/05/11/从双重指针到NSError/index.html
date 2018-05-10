@@ -79,14 +79,22 @@
 
 
 
+<meta name="description" content="从双重指针到 NSError**最近在学习 iOS runtime 的知识, 在阅读源码的过程中, 难免会碰到很多双重指针. 以前在学习指针概念的时候, 使用到双重指针的地方貌似也就是二维数组. 感觉双重指针不也就那个样, 指针的指针呗, 有啥? 现在好了, 别人真正用在工程上, 又有些看不懂. 所以基础知识不扎实, 会吃大亏.  既然知道了不足, 就认真改进. 我花了一个下午, 结合代码, 对双">
 <meta name="keywords" content="iOS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="烛风">
-<meta property="og:url" content="http://vicwan.github.io/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从双重指针到 NSError**">
+<meta property="og:url" content="http://vicwan.github.io/2018/05/11/从双重指针到NSError/index.html">
 <meta property="og:site_name" content="烛风">
+<meta property="og:description" content="从双重指针到 NSError**最近在学习 iOS runtime 的知识, 在阅读源码的过程中, 难免会碰到很多双重指针. 以前在学习指针概念的时候, 使用到双重指针的地方貌似也就是二维数组. 感觉双重指针不也就那个样, 指针的指针呗, 有啥? 现在好了, 别人真正用在工程上, 又有些看不懂. 所以基础知识不扎实, 会吃大亏.  既然知道了不足, 就认真改进. 我花了一个下午, 结合代码, 对双">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://github.com/vicwan/BlogImages/blob/master/Blog/1_%E5%8F%8C%E9%87%8D%E6%8C%87%E9%92%88%E5%88%B0NSError/blog1_1.png?raw=true">
+<meta property="og:image" content="https://github.com/vicwan/BlogImages/blob/master/Blog/1_%E5%8F%8C%E9%87%8D%E6%8C%87%E9%92%88%E5%88%B0NSError/blgo1_2.gif?raw=true">
+<meta property="og:image" content="https://github.com/vicwan/BlogImages/blob/master/Blog/1_%E5%8F%8C%E9%87%8D%E6%8C%87%E9%92%88%E5%88%B0NSError/blog1_3.gif?raw=true">
+<meta property="og:updated_time" content="2018-05-10T17:40:00.582Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="烛风">
+<meta name="twitter:title" content="从双重指针到 NSError**">
+<meta name="twitter:description" content="从双重指针到 NSError**最近在学习 iOS runtime 的知识, 在阅读源码的过程中, 难免会碰到很多双重指针. 以前在学习指针概念的时候, 使用到双重指针的地方貌似也就是二维数组. 感觉双重指针不也就那个样, 指针的指针呗, 有啥? 现在好了, 别人真正用在工程上, 又有些看不懂. 所以基础知识不扎实, 会吃大亏.  既然知道了不足, 就认真改进. 我花了一个下午, 结合代码, 对双">
+<meta name="twitter:image" content="https://github.com/vicwan/BlogImages/blob/master/Blog/1_%E5%8F%8C%E9%87%8D%E6%8C%87%E9%92%88%E5%88%B0NSError/blog1_1.png?raw=true">
 
 
 
@@ -116,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://vicwan.github.io/"/>
+  <link rel="canonical" href="http://vicwan.github.io/2018/05/11/从双重指针到NSError/"/>
 
 
 
 
 
-  <title>烛风</title>
+  <title>从双重指针到 NSError** | 烛风</title>
   
 
 
@@ -141,8 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,9 +222,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -247,9 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/11/从双重指针到NSError/" itemprop="url">从双重指针到 NSError**</a></h1>
+          <h1 class="post-title" itemprop="name headline">从双重指针到 NSError**</h1>
         
 
         <div class="post-meta">
@@ -299,9 +304,7 @@
       
 
       
-        
-          
-            <h1 id="从双重指针到-NSError"><a href="#从双重指针到-NSError" class="headerlink" title="从双重指针到 NSError**"></a>从双重指针到 NSError**</h1><p>最近在学习 iOS runtime 的知识, 在阅读源码的过程中, 难免会碰到很多双重指针. 以前在学习指针概念的时候, 使用到双重指针的地方貌似也就是二维数组. 感觉双重指针不也就那个样, 指针的指针呗, 有啥? 现在好了, 别人真正用在工程上, 又有些看不懂. 所以基础知识不扎实, 会吃大亏. </p>
+        <h1 id="从双重指针到-NSError"><a href="#从双重指针到-NSError" class="headerlink" title="从双重指针到 NSError**"></a>从双重指针到 NSError**</h1><p>最近在学习 iOS runtime 的知识, 在阅读源码的过程中, 难免会碰到很多双重指针. 以前在学习指针概念的时候, 使用到双重指针的地方貌似也就是二维数组. 感觉双重指针不也就那个样, 指针的指针呗, 有啥? 现在好了, 别人真正用在工程上, 又有些看不懂. 所以基础知识不扎实, 会吃大亏. </p>
 <p>既然知道了不足, 就认真改进. 我花了一个下午, 结合代码, 对双重指针进行了较为深入的理解… </p>
 <h2 id="双重指针"><a href="#双重指针" class="headerlink" title="双重指针"></a>双重指针</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>首先看一个经典的问题:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">char</span> *p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	p = <span class="string">"bbb"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *a = <span class="string">"abc"</span>;</span><br><span class="line">    change(a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s"</span>,a);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -342,8 +345,6 @@
 <li>之所以需要传入 <strong>NSError </strong> ** 类型的参数, 是因为方法内部产生了 <strong>NSError</strong> 对象, 需要把 <strong>NSError</strong> 对象所携带的 error 信息传回调用者进行处理. 而 <strong>NSError * </strong> 类型的参数, 无法将调用者创建的 <strong>NSError *</strong> 类型的指针指向方法内部创建的 <strong>NSError</strong> 的实例, 自然就无法达到传递 error 信息的效果.</li>
 </ol>
 
-          
-        
       
     </div>
     
@@ -360,131 +361,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://vicwan.github.io/2018/05/10/FirstBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Vic Wan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://github.com/vicwan/BlogImages/blob/master/Blog/Avatar_Heng.png?raw=true">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="烛风">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/10/FirstBlog/" itemprop="url">First Blog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-10T00:46:03+08:00">
-                2018-05-10
-              </time>
+              <a href="/2018/05/10/FirstBlog/" rel="next" title="First Blog">
+                <i class="fa fa-chevron-left"></i> First Blog
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h1 id="First-Blog"><a href="#First-Blog" class="headerlink" title="First Blog"></a>First Blog</h1><h3 id="haahhaha"><a href="#haahhaha" class="headerlink" title="haahhaha"></a>haahhaha</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -494,138 +392,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://vicwan.github.io/2018/05/09/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Vic Wan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://github.com/vicwan/BlogImages/blob/master/Blog/Avatar_Heng.png?raw=true">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="烛风">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/09/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-09T22:36:36+08:00">
-                2018-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -633,6 +404,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -653,8 +428,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -716,6 +500,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从双重指针到-NSError"><span class="nav-number">1.</span> <span class="nav-text">从双重指针到 NSError**</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双重指针"><span class="nav-number">1.1.</span> <span class="nav-text">双重指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详解"><span class="nav-number">1.1.2.</span> <span class="nav-text">详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSError"><span class="nav-number">1.2.</span> <span class="nav-text">NSError**</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -856,6 +656,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
